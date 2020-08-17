@@ -63,4 +63,4 @@ app.listen(4000, () => {
 
 // * docker exec -it 54788ec314ca sh // execute bash command inside docker container
 
-// * docker logs // show logs from container
+// * docker logs 54788ec314ca // show logs from container
