@@ -41,26 +41,3 @@ app.post('/events', (req, res) => {
 app.listen(4000, () => {
   console.log('Posts service listening on port: 4000');
 });
-
-
-// * DOCKER installation steps:
-
-// * docker images -a   //list all images
-// * docker images prune -a //  Remove all dangling images. If -a is specified, 
-                            //* will also remove all images not referenced by any container
-
-// * docker ps -a           // list all containers
-// * docker rm container_id
-
-// * docker build .   // create image, result: id - 54788ec314ca
-// ? or docker build -t alexreshetnyak/posts .  // result: use docker id to create tagged image
-
-// * docker run alexreshetnyak/posts  // create and run container
-// ? docker run 54788ec314ca          // create and run by id
-// ? docker run -it alexreshetnyak/posts sh         // create and run and run shell
-
-// * docker start 54788ec314ca // run container
-
-// * docker exec -it 54788ec314ca sh // execute bash command inside docker container
-
-// * docker logs 54788ec314ca // show logs from container

@@ -1,0 +1,44 @@
+Install dependencies instruction
+
+# DOCKER
+
+## DOCKER usage steps:
+* (optional) list all images: ```docker images -a```
+* (optional) Remove all dangling images. If -a is specified, will also remove all images not referenced by any container: ```docker images prune -a```
+* (optional) list all containers: ```docker ps -a```
+* (optional) remove container by id: ```docker rm container_id```
+* to create image move to one of services folder and: ```docker build .```
+* (optional) create image with tag: ```docker build -t alexreshetnyak/posts .```
+* create and run container:
+  * with tag:  ```docker run alexreshetnyak/posts```
+  * with id: ```docker run 54788ec314ca```
+  * with shell: ```docker run -it alexreshetnyak/posts sh```
+* start created container: ```docker start 54788ec314ca```
+* (optional) execute bash command inside docker container: ```docker exec -it 54788ec314ca sh```
+* (optional) show logs from container: ```docker logs 54788ec314ca```
+
+
+# KUBERNETES for linux
+
+## Install kubectl:
+* ```sudo apt-get update && sudo apt-get install -y apt-transport-https```
+* ```curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -```
+* ```echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list```
+* ```sudo apt-get update```
+* ```sudo apt-get install -y kubectl```
+
+## Install virtualbox:
+Download and install deb from [link](https://www.virtualbox.org/wiki/Linux_Downloads)
+
+## Install minikube:
+* ```curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \ && chmod +x minikube``` 
+* ```sudo mkdir -p /usr/local/bin/```
+* ```sudo install minikube /usr/local/bin/```
+
+##  Verify minikube setup::
+
+* ```minikube start --vm-driver=virtualbox```
+* ```minikube status```
+* ```minikube stop```
+* (optional) ```minikube delete```
+* ```kubectl version```
