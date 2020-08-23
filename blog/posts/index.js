@@ -59,7 +59,7 @@ app.listen(4000, () => {
 // ? docker run 54788ec314ca          // create and run by id
 // ? docker run -it alexreshetnyak/posts sh         // create and run and run shell
 
-// * docker start 54788ec314ca
+// * docker start 54788ec314ca // run container
 
 // * docker exec -it 54788ec314ca sh // execute bash command inside docker container
 
