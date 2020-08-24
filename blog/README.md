@@ -3,19 +3,20 @@ Install dependencies instruction
 # DOCKER
 
 ## DOCKER usage steps:
-* (optional) list all images: ```docker images -a```
-* (optional) Remove all dangling images. If -a is specified, will also remove all images not referenced by any container: ```docker images prune -a```
-* (optional) list all containers: ```docker ps -a```
-* (optional) remove container by id: ```docker rm container_id```
+* (optional) list all images:  ```docker images -a```
+* (optional) Remove all dangling images. If -a is specified, will also remove all images not referenced by any container:  ```docker images prune -a```
+* (optional) remove image by id:  ```docker rmi image_id```
+* (optional) list all containers:  ```docker ps -a```
+* (optional) remove container by id:  ```docker rm container_id```
 * to create image move to one of services folder and: ```docker build .```
-* (optional) create image with tag: ```docker build -t alexreshetnyak/posts .```
+* (optional) create image with tag:  ```docker build -t alexreshetnyak/posts .```
 * create and run container:
   * with tag:  ```docker run alexreshetnyak/posts```
-  * with id: ```docker run 54788ec314ca```
-  * with shell: ```docker run -it alexreshetnyak/posts sh```
+  * with id:  ```docker run 54788ec314ca```
+  * with shell:  ```docker run -it alexreshetnyak/posts sh```
 * start created container: ```docker start 54788ec314ca```
-* (optional) execute bash command inside docker container: ```docker exec -it 54788ec314ca sh```
-* (optional) show logs from container: ```docker logs 54788ec314ca```
+* (optional) execute bash command inside docker container:  ```docker exec -it 54788ec314ca sh```
+* (optional) show logs from container:  ```docker logs 54788ec314ca```
 
 
 # KUBERNETES for linux
@@ -35,10 +36,36 @@ Download and install deb from [link](https://www.virtualbox.org/wiki/Linux_Downl
 * ```sudo mkdir -p /usr/local/bin/```
 * ```sudo install minikube /usr/local/bin/```
 
-##  Verify minikube setup::
+##  Verify minikube setup:
 
 * ```minikube start --vm-driver=virtualbox```
 * ```minikube status```
 * ```minikube stop```
 * (optional) ```minikube delete```
 * ```kubectl version```
+
+## Create pod:
+```eval $(minikube docker-env)```
+```docker build -t alexreshetnyak/posts .```
+```docker push alexreshetnyak/posts```
+```cd infra/k8s```
+```kubectl apply -f posts-depl.yaml```
+```kubectl rollout restart deployment posts-depl```
+
+## Control pod:
+```kubectl delete pods posts-depl```
+```kubectl get pods```
+```kubectl get deployments```
+```kubectl describe pod posts-depl```
+```kubectl describe deployment posts-depl```
+```kubectl exec -it posts-depl sh```
+```kubectl logs posts-depl```
+
+## Create NodePort Service:
+```kubectl apply -f posts-srv.yaml```
+```kubectl get services```
+```kubectl describe service posts-srv```
+To access service - <minikube ip>:<NodePort_for_posts-srv>/posts 
+(use command ```minikube service posts-srv --url``` result: http://192.168.99.100:31725)
+
+## Create ClusterIP Service:
