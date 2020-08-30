@@ -4,7 +4,9 @@ Install dependencies instruction
 
 ## DOCKER usage steps:
 * (optional) list all images:  ```docker images -a```
-* (optional) Remove all dangling images. If -a is specified, will also remove all images not referenced by any container:  ```docker images prune -a```
+* (optional) Remove all dangling images. If -a is specified, will also remove all images not referenced by any container:  ```docker image prune -a```
+* (optional) Remove all dangling containers ```docker container prune```
+* (optional) Prune everything ```docker system prune```
 * (optional) remove image by id:  ```docker rmi image_id```
 * (optional) list all containers:  ```docker ps -a```
 * (optional) remove container by id:  ```docker rm container_id```
@@ -50,6 +52,14 @@ Download and install deb from [link](https://www.virtualbox.org/wiki/Linux_Downl
 ```docker push alexreshetnyak/posts```
 ```cd infra/k8s```
 ```kubectl apply -f posts-depl.yaml```
+(optional, apply changes for entire folder) ```kubectl apply -f .```
+```kubectl rollout restart deployment posts-depl```
+
+## Update pod:
+Once after pc start: ```eval $(minikube docker-env)```
+```docker build -t alexreshetnyak/posts .```
+```docker push alexreshetnyak/posts```
+```kubectl describe pod posts-depl```
 ```kubectl rollout restart deployment posts-depl```
 
 ## Control pod:
@@ -69,3 +79,4 @@ To access service - <minikube ip>:<NodePort_for_posts-srv>/posts
 (use command ```minikube service posts-srv --url``` result: http://192.168.99.100:31725)
 
 ## Create ClusterIP Service:
+add posts clusterip-srv to posts-depl.yaml and ```kubectl apply -f posts-depl.yaml```
