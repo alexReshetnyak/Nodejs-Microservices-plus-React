@@ -80,3 +80,8 @@ To access service - <minikube ip>:<NodePort_for_posts-srv>/posts
 
 ## Create ClusterIP Service:
 add posts clusterip-srv to posts-depl.yaml and ```kubectl apply -f posts-depl.yaml```
+
+## Install ingress:
+```minikube addons enable ingress```
+```kubectl apply -f ingress-srv.yaml```
+modify /etc/hosts, add to bottom: 192.168.99.100 posts.com
