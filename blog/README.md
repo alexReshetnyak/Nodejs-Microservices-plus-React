@@ -13,6 +13,7 @@ Install dependencies instruction
 * to create image move to one of services folder and: ```docker build .```
 * (optional) create image with tag:  ```docker build -t alexreshetnyak/posts .```
 * create and run container:
+  * with tag:  ```docker run -it --rm -p 3001:3000 -e CHOKIDAR_USEPOLLING=true alexreshetnyak/client```
   * with tag:  ```docker run alexreshetnyak/posts```
   * with id:  ```docker run 54788ec314ca```
   * with shell:  ```docker run -it alexreshetnyak/posts sh```
@@ -39,7 +40,6 @@ Download and install deb from [link](https://www.virtualbox.org/wiki/Linux_Downl
 * ```sudo install minikube /usr/local/bin/```
 
 ##  Verify minikube setup:
-
 * ```minikube start --vm-driver=virtualbox```
 * ```minikube status```
 * ```minikube stop```
@@ -56,6 +56,7 @@ Download and install deb from [link](https://www.virtualbox.org/wiki/Linux_Downl
 ```kubectl rollout restart deployment posts-depl```
 
 ## Update pod:
+Once after pc start: ```minikube start --vm-driver=virtualbox```
 Once after pc start: ```eval $(minikube docker-env)```
 ```docker build -t alexreshetnyak/posts .```
 ```docker push alexreshetnyak/posts```
@@ -81,7 +82,7 @@ To access service - <minikube ip>:<NodePort_for_posts-srv>/posts
 ## Create ClusterIP Service:
 add posts clusterip-srv to posts-depl.yaml and ```kubectl apply -f posts-depl.yaml```
 
-## Install ingress:
+## Install ingress-nginx:
 ```minikube addons enable ingress```
 ```kubectl apply -f ingress-srv.yaml```
 modify /etc/hosts, add to bottom: 192.168.99.100 posts.com
