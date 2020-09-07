@@ -3,7 +3,7 @@ import axios from 'axios';
 
 
 const PostCreate = () => {
-  const [title, setTitle] = useState('test');
+  const [title, setTitle] = useState('test2');
 
   const onSubmit = async (event) => {
     event.preventDefault();
