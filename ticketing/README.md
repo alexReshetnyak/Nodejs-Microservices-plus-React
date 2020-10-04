@@ -100,5 +100,6 @@ modify /etc/hosts, add to bottom: 192.168.99.100 posts.com
 ```eval $(minikube docker-env)```
 
 ## auth service
-```docker build -t alexreshetnyak/auth .```
+(optional) ```docker build -t alexreshetnyak/auth .```
 ```skaffold dev```
+modify /etc/hosts, add to bottom: 192.168.99.100 ticketing.dev
