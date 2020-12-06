@@ -116,3 +116,4 @@ modify /etc/hosts, add to bottom: 192.168.99.100 posts.com
 modify /etc/hosts, add to bottom: 192.168.99.100 ticketing.dev
 to store jwt secret: `kubectl create secret generic jwt-secret --from-literal=JWT_KEY=***`
 (optional) to list all created keys: `kubectl get secrets`
+(optional) run tests `npm run test`
