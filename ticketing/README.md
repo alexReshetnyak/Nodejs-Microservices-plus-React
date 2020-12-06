@@ -109,11 +109,19 @@ modify /etc/hosts, add to bottom: 192.168.99.100 posts.com
 `minikube start --vm-driver=virtualbox`
 `eval $(minikube docker-env)`
 
-## auth service
+## Auth service
 
-(optional) `docker build -t alexreshetnyak/auth .`
-`skaffold dev`
+Build image `docker build -t alexreshetnyak/auth .`
+Push image to docker hub `docker push alexreshetnyak/auth`
+Run skaffold `skaffold dev`
 modify /etc/hosts, add to bottom: 192.168.99.100 ticketing.dev
 to store jwt secret: `kubectl create secret generic jwt-secret --from-literal=JWT_KEY=***`
 (optional) to list all created keys: `kubectl get secrets`
 (optional) run tests `npm run test`
+
+## Client
+Install dependencies `npm i`
+(optional) Start application `npm run dev`
+Build image `docker build -t alexreshetnyak/client .`
+Push image to docker hub `docker push alexreshetnyak/client`
+Run skaffold `skaffold dev`
