@@ -84,7 +84,19 @@ Once after pc start: `eval $(minikube docker-env)`
 `kubectl get services`
 `kubectl describe service posts-srv`
 To access service - <minikube ip>:<NodePort_for_posts-srv>/posts
+If you are running Minikube locally, use minikube ip to get the external IP: `minikube ip`
 (use command `minikube service posts-srv --url` result: http://192.168.99.100:31725)
+
+## Install Helm and NGINX Ingress Controller:
+`curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3`
+`chmod 700 get_helm.sh`
+`./get_helm.sh`
+
+`helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx`
+`helm install alexey-release ingress-nginx/ingress-nginx`
+(optional) Verify: `kubectl get services`
+
+If you need to deal with Server Side Rendering (SSR) and send a HTTP request from one pod (where your Next.js App is running) to one of your microservice (that is running in a different pod), before the page is even rendered, you can send the request to http://alexey-release-ingress-nginx-controller.default.svc.cluster.local
 
 ## Create ClusterIP Service:
 
@@ -92,8 +104,8 @@ add posts clusterip-srv to posts-depl.yaml and `kubectl apply -f posts-depl.yaml
 
 ## Install ingress-nginx:
 
-`minikube addons enable ingress`
-`kubectl apply -f ingress-srv.yaml`
+Enable ingress: `minikube addons enable ingress`
+Apply ingress config: `kubectl apply -f ingress-srv.yaml`
 modify /etc/hosts, add to bottom: 192.168.99.100 posts.com
 
 ## Install skaffold:
@@ -125,3 +137,5 @@ Install dependencies `npm i`
 Build image `docker build -t alexreshetnyak/client .`
 Push image to docker hub `docker push alexreshetnyak/client`
 Run skaffold `skaffold dev`
+(optional) Get kubectl namespaces `kubectl get namespace`
+(optional) Verify the IP address is set: `kubectl get ingress`
