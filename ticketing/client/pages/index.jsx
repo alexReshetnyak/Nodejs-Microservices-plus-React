@@ -1,34 +1,19 @@
-import axios from 'axios';
+import { buildClient } from '../api/build-client';
 
 const LandingPage = ({ currentUser }) => {
-  console.log('I am in the component', currentUser);
-
-  return <h1>Landing page</h1>;
+  return currentUser ? (
+    <h1>You are signed in</h1>
+  ) : (
+    <h1>You are NOT signed in</h1>
+  );
 };
 
-LandingPage.getInitialProps = async () => {
-  if (typeof window === 'undefined') {
-    // * We are on the server
-    // * Option 1
-    // const { data } = await axios.get(
-    //   'http://auth-srv:3000/api/users/currentuser'
-    // );
+LandingPage.getInitialProps = async (context) => {
+  // * we are on the server
+  console.log('LANDING PAGE!');
 
-    // * Option 2
-    const { data } = await axios.get(
-      'http://alexey-release-ingress-nginx-controller.default.svc.cluster.local/api/users/currentuser',
-      {
-        headers: {
-          Host: 'ticketing.dev',
-        },
-      }
-    );
-
-    return data;
-  }
-
-  // * We are on the browser
-  const { data } = await axios.get('/api/users/currentuser');
+  const client = buildClient(context);
+  const { data } = await client.get('/api/users/currentuser');
   return data;
 };
 

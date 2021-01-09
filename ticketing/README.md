@@ -108,6 +108,21 @@ Enable ingress: `minikube addons enable ingress`
 Apply ingress config: `kubectl apply -f ingress-srv.yaml`
 modify /etc/hosts, add to bottom: 192.168.99.100 posts.com
 
+## Next.js, 
+### Sending http request from kubernetes pod through ingress service to another pod in Minikube
+You'll need Helm to install NGINX Ingress Controller, 
+where you can replace alexey-release with whatever you like:
+`helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx`
+`helm install alexey-release ingress-nginx/ingress-nginx`
+Check the available services in the default namespace: `kubectl get services`
+Now we have alexey-release-ingress-nginx-controller service of type LoadBalancer. 
+If you need to deal with Server Side Rendering (SSR) and send a HTTP request from one pod 
+(where your Next.js App is running) to one of your microservices (that is runnig in a different pod), before the page is even rendered, you can send the request to 
+http://alexey-release-ingress-nginx-controller.default.svc.cluster.local
+/<path_set_in_the_Ingress_Resource>. 
+For example the URL can looks like: 
+http://alexey-release-ingress-nginx-controller.default.svc.cluster.local/api/users
+
 ## Install skaffold:
 
 `curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64`
