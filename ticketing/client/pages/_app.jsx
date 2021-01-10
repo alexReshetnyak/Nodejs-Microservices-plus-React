@@ -1,10 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.css';
+
+import Header from '../components/header';
 import { buildClient } from '../api/build-client';
 
 const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
     <div>
-      <h1>Header! {currentUser.email}</h1>
+      <Header currentUser={currentUser} />
       <Component {...pageProps} />
     </div>
   );
@@ -20,13 +22,21 @@ AppComponent.getInitialProps = async (appContext) => {
     pageProps = await appContext.Component.getInitialProps(appContext.ctx);
   }
 
-  // data : {
-  //   currentUser: {
-  //     id: '5ff9d0a6d44a140023c74ffb',
-  //     email: 'test@test.com',
-  //     iat: 1610210656
-  //   }
-  // }
+  // * data :
+  // * currentUser: {
+  // *    id: '5ff9d0a6d44a140023c74ffb',
+  // *    email: 'test@test.com',
+  // *    iat: 1610210656
+  // * }
+
+  // * pageProps:
+  // * currentUser: {
+  // *     id: '5ff9d0a6d44a140023c74ffb',
+  // *     email: 'test@test.com',
+  // *     iat: 1610210656
+  // * }
+
+  console.log(pageProps);
 
   return {
     pageProps,
