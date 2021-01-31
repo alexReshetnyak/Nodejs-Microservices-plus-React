@@ -52,70 +52,70 @@ Download and install deb from [link](https://www.virtualbox.org/wiki/Linux_Downl
 
 ## Create pod:
 
-`docker build -t alexreshetnyak/posts .`
-`docker push alexreshetnyak/posts`
-`cd infra/k8s`
-`kubectl apply -f posts-depl.yaml`
-(optional, apply changes for entire folder) `kubectl apply -f .`
-`kubectl rollout restart deployment posts-depl`
+- `docker build -t alexreshetnyak/posts .`
+- `docker push alexreshetnyak/posts`
+- `cd infra/k8s`
+- `kubectl apply -f posts-depl.yaml`
+- (optional, apply changes for entire folder) `kubectl apply -f .`
+- `kubectl rollout restart deployment posts-depl`
 
 ## Update pod:
 
-Once after pc start: `minikube start --vm-driver=virtualbox`
-Once after pc start: `eval $(minikube docker-env)`
-`docker build -t alexreshetnyak/posts .`
-`docker push alexreshetnyak/posts`
-`kubectl describe pod posts-depl`
-`kubectl rollout restart deployment posts-depl`
+- Once after pc start: `minikube start --vm-driver=virtualbox`
+- Once after pc start: `eval $(minikube docker-env)`
+- `docker build -t alexreshetnyak/posts .`
+- `docker push alexreshetnyak/posts`
+- `kubectl describe pod posts-depl`
+- `kubectl rollout restart deployment posts-depl`
 
 ## Control pod:
 
-`kubectl delete pods posts-depl`
-`kubectl get pods`
-`kubectl get deployments`
-`kubectl describe pod posts-depl`
-`kubectl describe deployment posts-depl`
-`kubectl exec -it posts-depl sh`
-`kubectl logs posts-depl`
+- `kubectl delete pods posts-depl`
+- `kubectl get pods`
+- `kubectl get deployments`
+- `kubectl describe pod posts-depl`
+- `kubectl describe deployment posts-depl`
+- `kubectl exec -it posts-depl sh`
+- `kubectl logs posts-depl`
 
 ## Create NodePort Service:
 
-`kubectl apply -f posts-srv.yaml`
-`kubectl get services`
-`kubectl describe service posts-srv`
-To access service - <minikube ip>:<NodePort_for_posts-srv>/posts
-If you are running Minikube locally, use minikube ip to get the external IP: `minikube ip`
+- `kubectl apply -f posts-srv.yaml`
+- `kubectl get services`
+- `kubectl describe service posts-srv`
+- To access service - <minikube ip>:<NodePort_for_posts-srv>/posts
+- If you are running Minikube locally, use minikube ip to get the external IP: `minikube ip`
 (use command `minikube service posts-srv --url` result: http://192.168.99.100:31725)
 
 ## Install Helm and NGINX Ingress Controller:
-`curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3`
-`chmod 700 get_helm.sh`
-`./get_helm.sh`
+- `curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3`
+- `chmod 700 get_helm.sh`
+- `./get_helm.sh`
 
-`helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx`
-`helm install alexey-release ingress-nginx/ingress-nginx`
-(optional) Verify: `kubectl get services`
+- `helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx`
+- `helm install alexey-release ingress-nginx/ingress-nginx`
+- (optional) Verify: `kubectl get services`
 
-If you need to deal with Server Side Rendering (SSR) and send a HTTP request from one pod (where your Next.js App is running) to one of your microservice (that is running in a different pod), before the page is even rendered, you can send the request to http://alexey-release-ingress-nginx-controller.default.svc.cluster.local
+- If you need to deal with Server Side Rendering (SSR) and send a HTTP request from one pod (where your Next.js App is running) to one of your microservice (that is running in a different pod), before the page is even rendered, you can send the request to http://alexey-release-ingress-nginx-controller.default.svc.cluster.local
 
 ## Create ClusterIP Service:
 
-add posts clusterip-srv to posts-depl.yaml and `kubectl apply -f posts-depl.yaml`
+Add posts clusterip-srv to posts-depl.yaml and `kubectl apply -f posts-depl.yaml`
 
 ## Install ingress-nginx:
 
-Enable ingress: `minikube addons enable ingress`
-Apply ingress config: `kubectl apply -f ingress-srv.yaml`
-modify /etc/hosts, add to bottom: 192.168.99.100 posts.com
+- Enable ingress: `minikube addons enable ingress`
+- Apply ingress config: `kubectl apply -f ingress-srv.yaml`
+- Modify /etc/hosts, add to bottom: 192.168.99.100 posts.com
 
 ## Next.js, 
 ### Sending http request from kubernetes pod through ingress service to another pod in Minikube
-You'll need Helm to install NGINX Ingress Controller, 
+- You'll need Helm to install NGINX Ingress Controller, 
 where you can replace alexey-release with whatever you like:
-`helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx`
-`helm install alexey-release ingress-nginx/ingress-nginx`
-Check the available services in the default namespace: `kubectl get services`
-Now we have alexey-release-ingress-nginx-controller service of type LoadBalancer. 
+- `helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx`
+- `helm install alexey-release ingress-nginx/ingress-nginx`
+- Check the available services in the default namespace: `kubectl get services`
+- Now we have alexey-release-ingress-nginx-controller service of type LoadBalancer. 
 If you need to deal with Server Side Rendering (SSR) and send a HTTP request from one pod 
 (where your Next.js App is running) to one of your microservices (that is runnig in a different pod), before the page is even rendered, you can send the request to 
 http://alexey-release-ingress-nginx-controller.default.svc.cluster.local
@@ -125,40 +125,40 @@ http://alexey-release-ingress-nginx-controller.default.svc.cluster.local/api/use
 
 ## Install skaffold:
 
-`curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64`
-`sudo install skaffold /usr/local/bin/`
-`skaffold dev`
+- `curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64`
+- `sudo install skaffold /usr/local/bin/`
+- `skaffold dev`
 
 # TICKETING APP
 
 ### Run minikube
 
-`minikube start --vm-driver=virtualbox`
-`eval $(minikube docker-env)`
+- `minikube start --vm-driver=virtualbox`
+- `eval $(minikube docker-env)`
 
 ## Auth service
 
-Build image `docker build -t alexreshetnyak/auth .`
-Push image to docker hub `docker push alexreshetnyak/auth`
-Run skaffold `skaffold dev`
-modify /etc/hosts, add to bottom: 192.168.99.100 ticketing.dev
-to store jwt secret: `kubectl create secret generic jwt-secret --from-literal=JWT_KEY=***`
-(optional) to list all created keys: `kubectl get secrets`
-(optional) run tests `npm run test`
+- Build image `docker build -t alexreshetnyak/auth .`
+- Push image to docker hub `docker push alexreshetnyak/auth`
+- Run skaffold `skaffold dev`
+- Modify /etc/hosts, add to bottom: 192.168.99.100 ticketing.dev
+- To store jwt secret: `kubectl create secret generic jwt-secret --from-literal=JWT_KEY=***`
+- (optional) To list all created keys: `kubectl get secrets`
+- (optional) Run tests `npm run test`
 
 ## Client
-Install dependencies `npm i`
-(optional) Start application `npm run dev`
-Build image `docker build -t alexreshetnyak/client .`
-Push image to docker hub `docker push alexreshetnyak/client`
-Run skaffold `skaffold dev`
-(optional) Get kubectl namespaces `kubectl get namespace`
-(optional) Verify the IP address is set: `kubectl get ingress`
+- Install dependencies `npm i`
+- (optional) Start application `npm run dev`
+- Build image `docker build -t alexreshetnyak/client .`
+- Push image to docker hub `docker push alexreshetnyak/client`
+- Run skaffold `skaffold dev`
+- (optional) Get kubectl namespaces `kubectl get namespace`
+- (optional) Verify the IP address is set: `kubectl get ingress`
 
 ## Common packages
-`npm login` and enter login/password (for example lehaincolor/******)
-`npm init -y`, `git init`, `git add .`, `git commit -m "initial-commit`, 
-`npm publish --access public`
-next commits:  `npm version patch` and `npm publish`
-install dependency: `npm i @alexey-corp/common`
-update dependency: `npm update @alexey-corp/common`
+- `npm login` and enter login/password (for example lehaincolor/******)
+- `npm init -y`, `git init`, `git add .`, `git commit -m "initial-commit`, 
+- `npm publish --access public`
+- Next commits:  `npm version patch` and `npm publish`
+- Install dependency: `npm i @alexey-corp/common`
+- Update dependency: `npm update @alexey-corp/common`
