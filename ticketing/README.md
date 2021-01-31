@@ -154,3 +154,11 @@ Push image to docker hub `docker push alexreshetnyak/client`
 Run skaffold `skaffold dev`
 (optional) Get kubectl namespaces `kubectl get namespace`
 (optional) Verify the IP address is set: `kubectl get ingress`
+
+## Common packages
+`npm login` and enter login/password (for example lehaincolor/******)
+`npm init -y`, `git init`, `git add .`, `git commit -m "initial-commit`, 
+`npm publish --access public`
+next commits:  `npm version patch` and `npm publish`
+install dependency: `npm i @alexey-corp/common`
+update dependency: `npm update @alexey-corp/common`
