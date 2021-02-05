@@ -71,12 +71,16 @@ Download and install deb from [link](https://www.virtualbox.org/wiki/Linux_Downl
 ## Control pod:
 
 - `kubectl delete pods posts-depl`
+- `kubectl delete services posts-srv`
+- `kubectl delete deployments posts-dpl`
 - `kubectl get pods`
 - `kubectl get deployments`
 - `kubectl describe pod posts-depl`
 - `kubectl describe deployment posts-depl`
-- `kubectl exec -it posts-depl sh`
+- `kubectl exec -it posts-depl sh` Run terminal inside pod
 - `kubectl logs posts-depl`
+- `kubectl get services`
+- `kubectl describe service posts-srv`
 
 ## Create NodePort Service:
 
@@ -162,3 +166,11 @@ http://alexey-release-ingress-nginx-controller.default.svc.cluster.local/api/use
 - Next commits:  `npm version patch` and `npm publish`
 - Install dependency: `npm i @alexey-corp/common`
 - Update dependency: `npm update @alexey-corp/common`
+
+## Tickets service
+
+- Build image `docker build -t alexreshetnyak/auth .`
+- Push image to docker hub `docker push alexreshetnyak/auth`
+- Run skaffold `skaffold dev`
+- (optional) To list all created keys: `kubectl get secrets`
+- (optional) Run tests `npm run test`
