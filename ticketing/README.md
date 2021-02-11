@@ -174,3 +174,10 @@ http://alexey-release-ingress-nginx-controller.default.svc.cluster.local/api/use
 - Run skaffold `skaffold dev`
 - (optional) To list all created keys: `kubectl get secrets`
 - (optional) Run tests `npm run test`
+
+
+## NATS Streaming Server
+
+- Links: 
+  - docker hub: [link](https://hub.docker.com/_/nats-streaming)
+  - docs.nats.io: [link](https://docs.nats.io/nats-streaming-server/changes)
