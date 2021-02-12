@@ -181,3 +181,9 @@ http://alexey-release-ingress-nginx-controller.default.svc.cluster.local/api/use
 - Links: 
   - docker hub: [link](https://hub.docker.com/_/nats-streaming)
   - docs.nats.io: [link](https://docs.nats.io/nats-streaming-server/changes)
+
+### NATS-TEST
+
+- `kubectl get pods`
+- `kubectl port-forward nats-depl-58c56c67b-hckqk 4222:4222`
+- `npm run publish`
