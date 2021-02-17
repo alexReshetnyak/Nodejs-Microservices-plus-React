@@ -12,8 +12,12 @@ const stan = nats.connect(clusterId, randomClientId, {
 stan.on('connect', () => {
   console.log('Listener connected to nats');
 
-  const options = stan.subscriptionOptions().setManualAckMode(true);
+  stan.on('close', () => {
+    console.log('NATS connection closed');
+    process.exit();
+  });
 
+  const options = stan.subscriptionOptions().setManualAckMode(true);
   const queueGroupName = 'orders-service-queue-group';
   const subscription = stan.subscribe(
     'ticket:created',
@@ -37,3 +41,7 @@ stan.on('connect', () => {
     msg.ack();
   });
 });
+
+// * Stop client when node js execution has been interrupted or terminated
+process.on('SIGINT', () => stan.close());
+process.on('SIGTERM', () => stan.close());
