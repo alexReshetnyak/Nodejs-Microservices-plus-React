@@ -189,3 +189,4 @@ http://alexey-release-ingress-nginx-controller.default.svc.cluster.local/api/use
 - `npm run publish`
 - `npm run listen`
 - Execute `kubectl port-forward nats-depl-58c56c67b-hckqk 8222:8222` to get access to http://localhost:8222/streaming or http://localhost:8222/streaming/channelsz?subs=1
+- `kubectl delete pod nats-depl-58c56c67b-hckqk`
