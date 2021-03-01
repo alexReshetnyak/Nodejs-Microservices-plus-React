@@ -169,12 +169,19 @@ http://alexey-release-ingress-nginx-controller.default.svc.cluster.local/api/use
 
 ## Tickets service
 
-- Build image `docker build -t alexreshetnyak/auth .`
-- Push image to docker hub `docker push alexreshetnyak/auth`
+- Build image `docker build -t alexreshetnyak/tickets .`
+- Push image to docker hub `docker push alexreshetnyak/tickets`
 - Run skaffold `skaffold dev`
 - (optional) To list all created keys: `kubectl get secrets`
 - (optional) Run tests `npm run test`
 
+## Orders service
+
+- Build image `docker build -t alexreshetnyak/orders .`
+- Push image to docker hub `docker push alexreshetnyak/orders`
+- Run skaffold `skaffold dev`
+- (optional) To list all created keys: `kubectl get secrets`
+- (optional) Run tests `npm run test`
 
 ## NATS Streaming Server
 
@@ -190,3 +197,5 @@ http://alexey-release-ingress-nginx-controller.default.svc.cluster.local/api/use
 - `npm run listen`
 - Execute `kubectl port-forward nats-depl-58c56c67b-hckqk 8222:8222` to get access to http://localhost:8222/streaming or http://localhost:8222/streaming/channelsz?subs=1
 - `kubectl delete pod nats-depl-58c56c67b-hckqk`
+
+
