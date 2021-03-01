@@ -8,11 +8,27 @@ const start = async () => {
     throw new Error('JWT_KEY must be defined');
   }
 
-  // * Connect to NATS
-  const clusterId = 'ticketing'; // got from nats-depl.yaml
-  const natsUrl = 'http://nats-srv:4222'; // based on nats-depl.yaml settings
+  if (!process.env.MONGO_URI) {
+    throw new Error('MONGO_URI must be defined');
+  }
 
-  await natsWrapper.connect(clusterId, 'client-id-random', natsUrl);
+  if (!process.env.NATS_CLIENT_ID) {
+    throw new Error('NATS_CLIENT_ID must be defined');
+  }
+
+  if (!process.env.NATS_URL) {
+    throw new Error('NATS_URL must be defined');
+  }
+
+  if (!process.env.NATS_CLUSTER_ID) {
+    throw new Error('NATS_CLUSTER_ID must be defined');
+  }
+
+  await natsWrapper.connect(
+    process.env.NATS_CLUSTER_ID,
+    process.env.NATS_CLIENT_ID,
+    process.env.NATS_URL
+  );
 
   natsWrapper.client.on('close', () => {
     console.log('NATS connection closed!');
@@ -22,10 +38,6 @@ const start = async () => {
   process.on('SIGTERM', () => natsWrapper.client.close());
 
   // * Connect to MONGO DB
-  if (!process.env.MONGO_URI) {
-    throw new Error('MONGO_URI must be defined');
-  }
-
   try {
     await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
