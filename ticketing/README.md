@@ -121,7 +121,7 @@ where you can replace alexey-release with whatever you like:
 - Check the available services in the default namespace: `kubectl get services`
 - Now we have alexey-release-ingress-nginx-controller service of type LoadBalancer. 
 If you need to deal with Server Side Rendering (SSR) and send a HTTP request from one pod 
-(where your Next.js App is running) to one of your microservices (that is runnig in a different pod), before the page is even rendered, you can send the request to 
+(where your Next.js App is running) to one of your microservices (that is running in a different pod), before the page is even rendered, you can send the request to 
 http://alexey-release-ingress-nginx-controller.default.svc.cluster.local
 /<path_set_in_the_Ingress_Resource>. 
 For example the URL can looks like: 
