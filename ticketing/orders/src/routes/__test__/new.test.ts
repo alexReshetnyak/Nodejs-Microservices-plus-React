@@ -2,6 +2,9 @@ import request from 'supertest';
 import { app } from '../../app';
 import mongoose from 'mongoose';
 
+import { Order, OrderStatus } from '../../models/order';
+import { Ticket } from '../../models/ticket';
+
 it('Returns an error if ticket does not exist', async () => {
   const ticketId = mongoose.Types.ObjectId();
 
@@ -12,6 +15,41 @@ it('Returns an error if ticket does not exist', async () => {
     .expect(404);
 });
 
-it('Returns an error if ticket has already reserved', async () => {});
+it('Returns an error if ticket has already reserved', async () => {
+  const ticket = Ticket.build({
+    title: 'test ticket',
+    price: 20,
+  });
 
-it('Reserves a ticket', async () => {});
+  await ticket.save();
+
+  const order = Order.build({
+    ticket,
+    userId: 'randomId',
+    status: OrderStatus.Created,
+    expiresAt: new Date(),
+  });
+
+  await order.save();
+
+  await request(app)
+    .post('/api/orders')
+    .set('Cookie', global.signin())
+    .send({ ticketId: ticket.id })
+    .expect(400);
+});
+
+it('Reserves a ticket', async () => {
+  const ticket = Ticket.build({
+    title: 'test ticket',
+    price: 20,
+  });
+
+  await ticket.save();
+
+  await request(app)
+    .post('/api/orders')
+    .set('Cookie', global.signin())
+    .send({ ticketId: ticket.id })
+    .expect(201);
+});
