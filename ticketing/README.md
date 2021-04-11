@@ -182,6 +182,13 @@ http://alexey-release-ingress-nginx-controller.default.svc.cluster.local/api/use
 - Run skaffold `skaffold dev`
 - (optional) To list all created keys: `kubectl get secrets`
 - (optional) Run tests `npm run test`
+- (optional) Get access to mongodb:
+  - `kubectl get pods`
+  - `kubectl exec -it orders-mongo-depl-86c6bc7bbf-2qrtq mongo`
+  - `show dbs`
+  - `use orders;`
+  - `db.tickets`
+  - `db.tickets.find()`
 
 ## NATS Streaming Server
 
