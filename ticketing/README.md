@@ -190,8 +190,12 @@ http://alexey-release-ingress-nginx-controller.default.svc.cluster.local/api/use
   - `db.tickets`
   - `db.tickets.find()`
 
-## NATS Streaming Server
+## Expiration service
+- Build image `docker build -t alexreshetnyak/expiration .`
+- Push image to docker hub `docker push alexreshetnyak/expiration`
+- Run skaffold `skaffold dev`
 
+## NATS Streaming Server
 - Links: 
   - docker hub: [link](https://hub.docker.com/_/nats-streaming)
   - docs.nats.io: [link](https://docs.nats.io/nats-streaming-server/changes)
