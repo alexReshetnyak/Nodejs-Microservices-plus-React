@@ -195,6 +195,11 @@ http://alexey-release-ingress-nginx-controller.default.svc.cluster.local/api/use
 - Push image to docker hub `docker push alexreshetnyak/expiration`
 - Run skaffold `skaffold dev`
 
+## Payments service
+- Build image `docker build -t alexreshetnyak/payments .`
+- Push image to docker hub `docker push alexreshetnyak/payments`
+- Run skaffold `skaffold dev`
+
 ## NATS Streaming Server
 - Links: 
   - docker hub: [link](https://hub.docker.com/_/nats-streaming)
