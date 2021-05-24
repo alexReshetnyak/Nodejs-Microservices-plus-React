@@ -38,6 +38,7 @@ Download and install deb from [link](https://www.virtualbox.org/wiki/Linux_Downl
 
 ## Install minikube:
 
+- `rm -rf ~/.minikube`
 - `curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \ && chmod +x minikube`
 - `sudo mkdir -p /usr/local/bin/`
 - `sudo install minikube /usr/local/bin/`
@@ -110,7 +111,7 @@ Add posts clusterip-srv to posts-depl.yaml and `kubectl apply -f posts-depl.yaml
 
 - Enable ingress: `minikube addons enable ingress`
 - Apply ingress config: `kubectl apply -f ingress-srv.yaml`
-- Modify /etc/hosts, add to bottom: 192.168.99.100 posts.com
+- Modify /etc/hosts, add to bottom: 192.168.99.100 posts.com (run `minikube ip` to get correct ip)
 
 ## Next.js, 
 ### Sending http request from kubernetes pod through ingress service to another pod in Minikube
@@ -137,7 +138,7 @@ http://alexey-release-ingress-nginx-controller.default.svc.cluster.local/api/use
 
 ### Run minikube
 
-- `minikube start --vm-driver=virtualbox`
+- `minikube start --vm-driver=virtualbox --disk-size 25g`
 - `eval $(minikube docker-env)`
 
 ## Auth service
