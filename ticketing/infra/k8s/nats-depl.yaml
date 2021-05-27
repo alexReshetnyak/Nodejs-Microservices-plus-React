@@ -39,6 +39,7 @@ metadata:
 spec:
   selector:
     app: nats
+  type: NodePort
   ports:
     - name: client
       protocol: TCP

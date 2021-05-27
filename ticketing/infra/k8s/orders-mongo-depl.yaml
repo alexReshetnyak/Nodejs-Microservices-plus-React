@@ -23,6 +23,7 @@ metadata:
 spec:
   selector:
     app: orders-mongo
+  type: NodePort
   ports:
     - name: db
       protocol: TCP

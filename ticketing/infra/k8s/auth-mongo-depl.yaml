@@ -23,6 +23,7 @@ metadata:
 spec:
   selector:
     app: auth-mongo
+  type: NodePort
   ports:
     - name: db
       protocol: TCP

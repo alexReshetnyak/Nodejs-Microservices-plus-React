@@ -48,7 +48,7 @@ Download and install deb from [link](https://www.virtualbox.org/wiki/Linux_Downl
 - `minikube start --vm-driver=virtualbox`
 - `minikube status`
 - `minikube stop`
-- (optional) `minikube delete`
+- (optional) `minikube delete`, `minikube dashboard`, `minikube addons enable metrics-server`
 - `kubectl version`
 
 ## Create pod:
@@ -82,6 +82,7 @@ Download and install deb from [link](https://www.virtualbox.org/wiki/Linux_Downl
 - `kubectl logs posts-depl`
 - `kubectl get services`
 - `kubectl describe service posts-srv`
+- `kubectl top pod auth-depl-66477bf989-x78ll` Get resources usage
 
 ## Create NodePort Service:
 
@@ -138,7 +139,7 @@ http://alexey-release-ingress-nginx-controller.default.svc.cluster.local/api/use
 
 ### Run minikube
 
-- `minikube start --vm-driver=virtualbox --disk-size 25g`
+- `minikube start --vm-driver=virtualbox`
 - `eval $(minikube docker-env)`
 
 ## Auth service
