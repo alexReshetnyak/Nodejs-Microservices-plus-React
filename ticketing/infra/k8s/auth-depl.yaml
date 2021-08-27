@@ -31,7 +31,6 @@ metadata:
 spec:
   selector:
     app: auth
-  type: NodePort
   ports:
     - name: auth
       protocol: TCP

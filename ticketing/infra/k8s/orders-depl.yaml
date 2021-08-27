@@ -40,7 +40,6 @@ metadata:
 spec:
   selector:
     app: orders
-  type: NodePort
   ports:
     - name: orders
       protocol: TCP
