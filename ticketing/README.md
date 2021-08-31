@@ -201,6 +201,7 @@ http://alexey-release-ingress-nginx-controller.default.svc.cluster.local/api/use
 - Build image `docker build -t alexreshetnyak/payments .`
 - Push image to docker hub `docker push alexreshetnyak/payments`
 - Run skaffold `skaffold dev`
+- To store stripe Secret key:`kubectl create secret generic stripe-secret --from-literal IPE_KEY=***`
 
 ## NATS Streaming Server
 - Links: 
