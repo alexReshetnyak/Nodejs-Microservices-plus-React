@@ -14,15 +14,15 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
   );
 };
 
-AppComponent.getInitialProps = async (appContext) => {
+AppComponent.getInitialProps = async (context) => {
   // * we are on the server
-  const client = buildClient(appContext.ctx);
+  const client = buildClient(context.ctx);
   const { data } = await client.get('/api/users/currentuser');
 
   let pageProps = {};
-  if (appContext.Component.getInitialProps) {
-    pageProps = await appContext.Component.getInitialProps(
-      appContext.ctx,
+  if (context.Component.getInitialProps) {
+    pageProps = await context.Component.getInitialProps(
+      context.ctx,
       client,
       data.currentUser
     );
