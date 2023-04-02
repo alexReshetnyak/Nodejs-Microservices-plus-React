@@ -92,3 +92,5 @@ modify /etc/hosts, add to bottom: 192.168.99.100 posts.com
 ```curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64```
 ```sudo install skaffold /usr/local/bin/```
 ```skaffold dev```
+
+
